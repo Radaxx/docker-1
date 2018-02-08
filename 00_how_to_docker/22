@@ -1,3 +1,1 @@
-token=$(docker swarm join-token -q worker)
-eval "$(docker-machine env Aiur)"
-docker swarm join --token $token 192.168.99.100:2377
+docker-machine ssh Aiur "docker swarm join --token $(docker swarm join-token -q worker) $(docker-machine ip Char):2377"
