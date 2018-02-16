@@ -1,11 +1,10 @@
-docker-machine ssh Char mkdir /home/python
+docker run -dt --name Abathur -v ~/Abathur:/root -p 3000:3000 python:2-slim
+docker exec Abathur pip install flask
 # Creer un fichier hello.py dont le contenu sera:
 # from flask import Flask
 # app = Flask(__name__)
 # @app.route('/')
 # def index():
 #	return ('<!DOCTYPE html><html><head><title></title></head><body><h1>Hello World</h1></body></html>')
-docker-machine scp hello.py Char:/home/python
-docker run -dt --name Abathur -v /home/python:/root -p 3000:3000 python:2-slim
-docker exec Abathur pip install flask
+docker cp hello.py Abathur:/root/hello.py
 docker exec --env FLASK_APP=/root/hello.py Abathur flask run --host=0.0.0.0 --port=3000
